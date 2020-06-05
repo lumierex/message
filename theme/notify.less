@@ -1,0 +1,20 @@
+
+@notify-prefix: 'ami-notify';
+// @prefix："ami-notify";
+@notify-zindex: 1111;
+@transition-time: 0.2s;
+@notify-border-radius: 3px;
+@white-Pcolor: #fff;
+// outer container
+.@{notify-prefix} {
+  z-index: @notify-zindex;
+  position: relative;
+
+  .@{notify-prefix} {
+    &-container {
+      background-color: @white-color;
+      border-radius: @notify-border-radius;
+      opacity: 0;
+    }
+  }
+}
