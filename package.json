@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "less": "^3.11.2",
+    "less": "^3.11.3",
     "typescript": "^3.9.5"
   }
 }

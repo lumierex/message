@@ -1,6 +1,6 @@
-import Notify from "../core/Notify"
 import Message from "../components/Message"
-window.onload = ()=> {  
+Message.timeout = 10000
+window.onload = ()=> { 
   console.log('hello world')
   // new Notify('message', 'hello world')
 

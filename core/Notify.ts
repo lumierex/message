@@ -21,7 +21,7 @@ class Notify {
   // type	提示类型	String	loading, info, warn, success, error	info
   // timeout
   // type: 'diaglog'
-  timeout: number = 1000
+  timeout: number
   title: string
   notifyCloseCls: string = 'ami-notify-close'
   closeIcon: boolean = false
@@ -98,9 +98,13 @@ class Notify {
 
   close() {
     this.notifyDOM.classList.remove(this.notifyShowCls)
-    setTimeout(() => {
+    // 等到动画完成再移除dom节点
+    window.addEventListener('transitionend', ()=> {
       dom.removeElement(this.notifyDOM)
-    }, 400)
+    })
+    // setTimeout(() => {
+    //   dom.removeElement(this.notifyDOM)
+    // }, 40)
   }
 
 }

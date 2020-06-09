@@ -15,10 +15,12 @@ const prefixCls = 'message';
 class Message extends Notify {
   public static notifyType: NotifyType = 'message'
   public static parentDOM : HTMLElement
+  public static timeout: number = 2000
   prefixDOM: string
   // type: MessageType
-  constructor(content: string, timeout?: Number, type?: MessageType, onClose?: () => void, parentDOM?: HTMLElement) {
+  constructor(content: string, timeout?: number, type?: MessageType, onClose?: () => void, parentDOM?: HTMLElement) {
     super(Message.notifyType, content, timeout, onClose, parentDOM)
+    this.timeout = Message.timeout
   }
 
 
@@ -31,11 +33,12 @@ class Message extends Notify {
     }
   }
 
-  public static info(content: string, timeout?: Number, onClose?: () => void) {
+  public static info(content: string, timeout?: number, onClose?: () => void) {
     // TODO merge params
     content = `<div><i class="${iconPrefixCls}"></i>${content}</div>`
     console.log('init Message', content)
     Message.initMessage()
+    timeout = timeout || Message.timeout
     return new Message(content, timeout, 'info', onClose, Message.parentDOM)
   }
 
