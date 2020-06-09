@@ -8,6 +8,9 @@
 // style
 // className
 // h-notify-container
+
+import dom from "../helpers/dom"
+
 // Notice Message Modal
 export type NotifyType = 'message' | 'notice'
 class Notify {
@@ -18,7 +21,7 @@ class Notify {
   // type	提示类型	String	loading, info, warn, success, error	info
   // timeout
   // type: 'diaglog'
-  timeout: Number = 1000
+  timeout: number = 1000
   title: string
   notifyCloseCls: string = 'ami-notify-close'
   closeIcon: boolean = false
@@ -42,14 +45,14 @@ class Notify {
   constructor(
     NotifyType: NotifyType,
     content?: string,
-    timeout?: Number,
+    timeout?: number,
     onClose?: () => void,
     parentDOM?: HTMLElement,
     closeIcon?: boolean,
   ) {
     this.NotifyType = NotifyType
     this.content = content
-    this.timeout = timeout || 1000
+    this.timeout = timeout || 2000
     this.closeIcon = closeIcon
     this.parentDOM = parentDOM || document.body
 
@@ -71,9 +74,16 @@ class Notify {
       const content = this.notifyDOM.querySelector('.notify-content')
       content.innerHTML = this.content
     }
+    // 显示
     setTimeout(() => {
       this.notifyDOM.classList.add(this.notifyShowCls)
     }, 20)
+    // 关闭
+    if (this.timeout !== 0) {
+      setTimeout(() => {
+        this.close()
+      }, this.timeout)
+    }
   }
 
 
@@ -84,6 +94,13 @@ class Notify {
 
   $(element: string): HTMLElement {
     return document.querySelector(`${element}`)
+  }
+
+  close() {
+    this.notifyDOM.classList.remove(this.notifyShowCls)
+    setTimeout(() => {
+      dom.removeElement(this.notifyDOM)
+    }, 400)
   }
 
 }
