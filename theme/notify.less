@@ -24,10 +24,19 @@
       transition: .2s;
       opacity: 0;
     }
+    &-content {
+      padding: 0 18px;
+      transition: .2s;
+    }
   }
   &-show {
     .@{notify-prefix}-container {
       opacity: 1;
     }
+    .@{notify-prefix}-content {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
   }
 }
