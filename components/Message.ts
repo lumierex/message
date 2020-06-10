@@ -53,6 +53,7 @@ class Message extends Notify {
   public static info(content: string, timeout?: number, type?: string, onClose?: () => void) {
     // TODO merge params
     content = `<div><i class="${iconPrefixCls}-${iconType[type]} ${iconColor[type]}"></i>${content}</div>`
+    content = `<div style="display:flex"><i class="${iconPrefixCls}-${iconType[type]} ${iconColor[type]}iconfont icon-alert-circle-outline"></i>${content}</div>`
     console.log('init Message', content)
     Message.initMessage()
     timeout = timeout || Message.timeout
