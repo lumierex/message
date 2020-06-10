@@ -8,13 +8,30 @@ import Notify, { NotifyType } from "../core/Notify";
 // icon
 // style
 // className
+
+
+enum iconType {
+  info = 'info',
+  success = 'success',
+  warn = 'warn',
+  error = 'error',
+  loading = 'loading'
+}
+enum iconColor {
+  info = 'blue',
+  success = 'green',
+  warn = 'yellow',
+  error = 'red',
+  loading = 'blue'
+}
+
 export type MessageType = 'info' | 'success' | 'error' | 'loading'
 let messageDOM: HTMLElement
 const iconPrefixCls = 'ami-icon'
 const prefixCls = 'message';
 class Message extends Notify {
   public static notifyType: NotifyType = 'message'
-  public static parentDOM : HTMLElement
+  public static parentDOM: HTMLElement
   public static timeout: number = 2000
   prefixDOM: string
   // type: MessageType
@@ -33,9 +50,9 @@ class Message extends Notify {
     }
   }
 
-  public static info(content: string, timeout?: number, onClose?: () => void) {
+  public static info(content: string, timeout?: number, type?: string, onClose?: () => void) {
     // TODO merge params
-    content = `<div><i class="${iconPrefixCls}"></i>${content}</div>`
+    content = `<div><i class="${iconPrefixCls}-${iconType[type]} ${iconColor[type]}"></i>${content}</div>`
     console.log('init Message', content)
     Message.initMessage()
     timeout = timeout || Message.timeout
@@ -43,7 +60,7 @@ class Message extends Notify {
   }
 
   public static success() {
- 
+
   }
   public static warn() {
 
