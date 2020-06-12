@@ -8,7 +8,11 @@
 .@{notify-prefix} {
   z-index: @notify-zindex;
   position: relative;
-
+  &-hide {
+    animation: notify-hide 0.2s ease-in-out;
+    animation-fill-mode: forwards;
+  }
+  transition:height cubic-bezier(0.6, -0.28, 0.735, 0.045) .2s;
   .@{notify-prefix} {
     &-container {
       max-height: 1000px;
@@ -35,6 +39,19 @@
       padding-top: 8px;
       padding-bottom: 8px;
     }
+  }
+}
 
+@keyframes notify-hide {
+  0% {
+    opacity: 1;
+    height: 100%;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    height: 0;
+    transform: translateY(-100%)
+    // transform: translateY(calc(-100% - 10px))
   }
 }

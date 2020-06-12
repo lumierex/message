@@ -30,6 +30,7 @@ class Notify {
   notifyContentCls: string = 'ami-notify-content'
   notifyContainerCls: string = 'ami-notify-container'
   notifyShowCls = 'ami-notify-show';
+  notifyHideCls = 'ami-notify-hide'
   NotifyType: NotifyType = 'message'
   content: string = ''
   footer: boolean = false
@@ -98,8 +99,14 @@ class Notify {
 
   close() {
     this.notifyDOM.classList.remove(this.notifyShowCls)
+    // this.notifyDOM.classList.add(this.notifyHideCls)
+    // this.notifyDOM.setAttribute('style', 'height:0,padding-top:0,padding-bottom:0')
     // 等到动画完成再移除dom节点
-    window.addEventListener('transitionend', ()=> {
+    this.notifyDOM.addEventListener('animationend', ()=> {
+      this.notifyDOM.setAttribute('style', 'height:0')
+    })
+
+    this.notifyDOM.addEventListener('transitionend', ()=> {
       dom.removeElement(this.notifyDOM)
     })
     // setTimeout(() => {
