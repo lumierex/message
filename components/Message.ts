@@ -37,7 +37,6 @@ class Message extends Notify {
   // type: MessageType
   constructor(content: string, timeout?: number, type?: MessageType, onClose?: () => void, parentDOM?: HTMLElement) {
     super(Message.notifyType, content, timeout, onClose, parentDOM)
-    this.timeout = Message.timeout
   }
 
 
@@ -50,13 +49,17 @@ class Message extends Notify {
     }
   }
 
-  public static info(content: string, timeout?: number, type?: string, onClose?: () => void) {
+  public static info(content: string, timeout?: number,  onClose?: () => void) {
     // TODO merge params
-    content = `<div><i class="${iconPrefixCls}-${iconType[type]} ${iconColor[type]}"></i>${content}</div>`
-    content = `<div style="display:flex"><i class="${iconPrefixCls}-${iconType[type]} ${iconColor[type]}iconfont icon-alert-circle-outline"></i>${content}</div>`
+    const type = 'info'
+    // content = `<div><i class="${iconPrefixCls}-${iconType[type]} ${iconColor[type]}"></i>${content}</div>`
+    content = `<div><i class="${iconPrefixCls}-${iconType[type]} ${iconColor[type]} ${iconPrefixCls} icon-alert-circle-outline"></i>
+    <div style="display:inline-block">${content}</div>
+    </div>`
     console.log('init Message', content)
     Message.initMessage()
-    timeout = timeout || Message.timeout
+    timeout = timeout !== 0 ?  Message.timeout: 0
+    console.log('timeout', timeout)
     return new Message(content, timeout, 'info', onClose, Message.parentDOM)
   }
 

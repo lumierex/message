@@ -1,5 +1,5 @@
 import Message from "../components/Message"
-Message.timeout = 10000
+// Message.timeout = 10000
 window.onload = ()=> { 
   console.log('hello world')
   // new Notify('message', 'hello world')

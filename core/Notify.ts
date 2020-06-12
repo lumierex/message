@@ -52,7 +52,7 @@ class Notify {
   ) {
     this.NotifyType = NotifyType
     this.content = content
-    this.timeout = timeout || 2000
+    this.timeout = timeout
     this.closeIcon = closeIcon
     this.parentDOM = parentDOM || document.body
 
