@@ -99,15 +99,28 @@ class Notify {
 
   close() {
     this.notifyDOM.classList.remove(this.notifyShowCls)
-    // this.notifyDOM.classList.add(this.notifyHideCls)
+    // const inner: HTMLElement= this.notifyDOM.querySelector('.ami-notify-container')
+    // this.notifyDOM.style.height = "0px"
+    // this.notifyDOM.style.paddingTop = '0px'
+    // this.notifyDOM.style.paddingBottom = '0px'
+    this.notifyDOM.classList.add(this.notifyHideCls)
     // this.notifyDOM.setAttribute('style', 'height:0,padding-top:0,padding-bottom:0')
     // 等到动画完成再移除dom节点
-    this.notifyDOM.addEventListener('animationend', ()=> {
-      this.notifyDOM.setAttribute('style', 'height:0')
-    })
+    // this.notifyDOM.addEventListener('animationend', ()=> {
+    console.log(this.notifyDOM, 'notifyDOM')
+    // this.notifyDOM.style
+    // })
 
-    this.notifyDOM.addEventListener('transitionend', ()=> {
-      dom.removeElement(this.notifyDOM)
+    // setTimeout(()=> {
+    //   dom.removeElement(this)
+    // }, 200)
+    this.notifyDOM.addEventListener('transitionend', () => {
+      // this.notifyDOM.style.height = '0px'
+      // console.log('setting stylle', this.notifyDOM)
+      // setTimeout(()=> {
+      // dom.removeElement(this.notifyDOM)
+      // }, 400)
+      // console.log('setting)
     })
     // setTimeout(() => {
     //   dom.removeElement(this.notifyDOM)
