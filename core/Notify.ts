@@ -1,14 +1,4 @@
 
-// 参数	说明	类型	可选值	默认值
-// content	提示的文本	String	-	-
-// title	提示的标题	String	-	-
-// type	提示类型	String	loading, info, warn, success, error	info
-// timeout	显示多少毫秒后自动关闭	Number	-	全局配置timeout
-// icon
-// style
-// className
-// h-notify-container
-
 import dom from "../helpers/dom"
 
 // Notice Message Modal
@@ -16,11 +6,6 @@ export type NotifyType = 'message' | 'notice'
 class Notify {
   parentDOM: HTMLElement
   notifyDOM: HTMLElement
-  // private template 
-  //   text	提示的文本	String	-	-
-  // type	提示类型	String	loading, info, warn, success, error	info
-  // timeout
-  // type: 'diaglog'
   timeout: number
   title: string
   notifyCloseCls: string = 'ami-notify-close'
@@ -37,7 +22,7 @@ class Notify {
 
   private defaultTpl: string = `
     <div class="${this.notifyContainerCls}">
-      ${this.closeIcon ? `<span ${this.notifyCloseCls}></span>` : ''}
+      ${this.closeIcon ? `<i class="${this.notifyCloseCls} ">d</i>` : ''}
       ${this.title ? `<header class="ami-${this.NotifyType + 'header'}">${this.title}</header>` : ''}
       <div class="notify-content ${this.notifyContentCls}">${this.content}</div>
     </div>
@@ -58,7 +43,22 @@ class Notify {
     this.parentDOM = parentDOM || document.body
 
     console.log('before create template', this.defaultTpl)
-    this.createTemplate(this.defaultTpl)
+    // 不消失的话 就用手动关闭
+    if(this.timeout === 0){
+      this.closeIcon = true
+    }
+    console.log('timeout', this.timeout, 'this.closeIcon', this.closeIcon)
+    this.createTemplate(this.generateTpl())
+  }
+
+  private generateTpl() {
+    return `
+      <div class="${this.notifyContainerCls}" style="${this.closeIcon ? 'padding-right:8px' : ''}">
+        ${this.closeIcon ? `<i style="margin-left:8px" class="ami-icon icon-close ${this.notifyCloseCls} "></i>` : ''}
+        ${this.title ? `<header class="ami-${this.NotifyType + 'header'}">${this.title}</header>` : ''}
+        <div class="notify-content ${this.notifyContentCls}">${this.content}</div>
+      </div>
+    `
   }
 
 
@@ -99,32 +99,13 @@ class Notify {
 
   close() {
     this.notifyDOM.classList.remove(this.notifyShowCls)
-    // const inner: HTMLElement= this.notifyDOM.querySelector('.ami-notify-container')
-    // this.notifyDOM.style.height = "0px"
-    // this.notifyDOM.style.paddingTop = '0px'
-    // this.notifyDOM.style.paddingBottom = '0px'
     this.notifyDOM.classList.add(this.notifyHideCls)
-    // this.notifyDOM.setAttribute('style', 'height:0,padding-top:0,padding-bottom:0')
     // 等到动画完成再移除dom节点
-    // this.notifyDOM.addEventListener('animationend', ()=> {
     console.log(this.notifyDOM, 'notifyDOM')
-    // this.notifyDOM.style
-    // })
 
-    // setTimeout(()=> {
-    //   dom.removeElement(this)
-    // }, 200)
     this.notifyDOM.addEventListener('transitionend', () => {
-      // this.notifyDOM.style.height = '0px'
-      // console.log('setting stylle', this.notifyDOM)
-      // setTimeout(()=> {
-      // dom.removeElement(this.notifyDOM)
-      // }, 400)
-      // console.log('setting)
+      dom.removeElement(this.notifyDOM)
     })
-    // setTimeout(() => {
-    //   dom.removeElement(this.notifyDOM)
-    // }, 40)
   }
 
 }

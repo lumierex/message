@@ -1,15 +1,5 @@
 import Notify, { NotifyType } from "../core/Notify";
 
-// 参数	说明	类型	可选值	默认值
-// content	提示的文本	String	-	-
-// title	提示的标题	String	-	-
-// type	提示类型	String	loading, info, warn, success, error	info
-// timeout	显示多少毫秒后自动关闭	Number	-	全局配置timeout
-// icon
-// style
-// className
-
-
 enum iconType {
   info = 'info',
   success = 'success',
@@ -18,14 +8,14 @@ enum iconType {
   loading = 'loading'
 }
 enum iconColor {
-  info = 'blue',
-  success = 'green',
-  warn = 'yellow',
-  error = 'red',
+  info = 'blue icon-info',
+  success = 'green icon-success',
+  warn = 'yellow icon-info',
+  error = 'red icon-error',
   loading = 'blue'
 }
 
-export type MessageType = 'info' | 'success' | 'error' | 'loading'
+export type MessageType = 'info' | 'success' | 'error' | 'loading' | 'warn'
 let messageDOM: HTMLElement
 const iconPrefixCls = 'ami-icon'
 const prefixCls = 'message';
@@ -34,10 +24,10 @@ class Message extends Notify {
   public static parentDOM: HTMLElement
   public static timeout: number = 2000
   prefixDOM: string
-  // type: MessageType
-  constructor(content: string, timeout?: number, type?: MessageType, onClose?: () => void, parentDOM?: HTMLElement) {
+ constructor(content: string, timeout?: number, type?: MessageType, onClose?: () => void, parentDOM?: HTMLElement) {
     super(Message.notifyType, content, timeout, onClose, parentDOM)
-  }
+  } // type: MessageType
+  
 
 
   private static initMessage() {
@@ -49,30 +39,42 @@ class Message extends Notify {
     }
   }
 
-  public static info(content: string, timeout?: number,  onClose?: () => void) {
-    // TODO merge params
-    const type = 'info'
-    // content = `<div><i class="${iconPrefixCls}-${iconType[type]} ${iconColor[type]}"></i>${content}</div>`
-    content = `<div><i class="${iconPrefixCls}-${iconType[type]} ${iconColor[type]} ${iconPrefixCls} icon-alert-circle-outline"></i>
+  private static generateContentTpl(type = 'info', content) {
+    return `<div style="display:flex"><i  style="margin-right: 8px" class="${iconPrefixCls}-${iconType[type]} ${iconColor[type]} ${iconPrefixCls}"></i>
     <div style="display:inline-block">${content}</div>
     </div>`
-    console.log('init Message', content)
+  }
+
+  public static info(content: string, timeout?: number,  onClose?: () => void) {
+    const type = 'info'
+    content = Message.generateContentTpl(type, content)
     Message.initMessage()
     timeout = timeout !== 0 ?  Message.timeout: 0
-    console.log('timeout', timeout)
-    return new Message(content, timeout, 'info', onClose, Message.parentDOM)
+    return new Message(content, timeout, type, onClose, Message.parentDOM)
   }
 
-  public static success() {
-
+  public static success(content: string, timeout?: number,  onClose?: () => void) {
+    const type = 'success'
+    content = Message.generateContentTpl(type, content)
+    Message.initMessage()
+    timeout = timeout !== 0 ?  Message.timeout: 0
+    return new Message(content, timeout, type, onClose, Message.parentDOM)
   }
-  public static warn() {
-
+  public static warn(content: string, timeout?: number,  onClose?: () => void) {
+    const type = 'warn'
+    content = Message.generateContentTpl(type, content)
+    Message.initMessage()
+    timeout = timeout !== 0 ?  Message.timeout: 0
+    return new Message(content, timeout, type, onClose, Message.parentDOM)
   }
-  public static error() {
-
+  public static error(content: string, timeout?: number,  onClose?: () => void) {
+    const type = 'error'
+    content = Message.generateContentTpl(type, content)
+    Message.initMessage()
+    timeout = timeout !== 0 ?  Message.timeout: 0
+    return new Message(content, timeout, type, onClose, Message.parentDOM)
   }
-  public static loading() {
+  public static loading(content: string, timeout?: number,  onClose?: () => void) {
 
   }
 }

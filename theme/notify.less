@@ -4,6 +4,7 @@
 @transition-time: 0.2s;
 @notify-border-radius: 3px;
 @white-color: #fff;
+@notify-icon-prefix : 'ami-icon';
 // outer container
 .@{notify-prefix} {
   z-index: @notify-zindex;
@@ -16,6 +17,7 @@
   transition: all @transition-time;
   .@{notify-prefix} {
     &-container {
+      position: relative;
       max-height: 1000px;
       background-color: @white-color;
       border-radius: @notify-border-radius;
@@ -31,6 +33,18 @@
       padding: 0 18px;
       transition: @transition-time;
     }
+    &-close {
+      display: block;
+      position: absolute;
+      right: 8px;
+      top: 12px;
+      font-size: 18px;
+      text-align: center;
+      line-height: 1;
+      z-index: 1;
+      opacity: 0;
+      transition: @transition-time;
+    }
   }
   &-show {
     .@{notify-prefix}-container {
@@ -39,6 +53,9 @@
     .@{notify-prefix}-content {
       padding-top: 8px;
       padding-bottom: 8px;
+    }
+    .@{notify-prefix}-close {
+      opacity: 1;
     }
   }
 }
